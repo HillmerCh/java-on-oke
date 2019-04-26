@@ -36,7 +36,7 @@ The application is composed of:
 	export PATH=/Library/Maven/apache-maven-3.5.0/bin/:$PATH
 	```
 
-* Compile and Package the application via maven:
+* Navigate to where you have this repository code in your file system. Compile and Package the application via maven:
 
 	```
 	mvn package -f javaee-cafe/pom.xml 
@@ -47,7 +47,7 @@ The application is composed of:
 	cp javaee-cafe/target/javaee-cafe.war docker/
 	```
 
-* Build a Docker image tagged `javaee-cafe` issuing the command:
+* Make sure Docker is running. Build a Docker image tagged `javaee-cafe` issuing the command:
 	```
 	docker build -t javaee-cafe docker/.
 	```
@@ -88,7 +88,7 @@ The application is composed of:
    ```
 * Build a Docker image and push the image to Docker Hub:
    ```
-   docker build -t <your Docker Hub account>/javaee-cafe:<your docker image version> .
+   docker build -t <your Docker Hub account>/javaee-cafe:<your docker image version> kubernetes/.
    docker push <your Docker Hub account>/javaee-cafe:<your docker image version>
    ```
 
@@ -110,7 +110,7 @@ The application is composed of:
    
 * Deploy postgres with a persistent volume claim with the following command:
    ```
-   kubectl create -f postgres.yml
+   kubectl create -f kubernetes/postgres.yml
    ```
 
 * Get the pod for Postgres:

@@ -1,7 +1,3 @@
-# websphere
-#FROM websphere-liberty
-#COPY server/postgresql-42.2.4.jar /opt/ibm/wlp/usr/shared/resources/
-#open liberty
 FROM open-liberty:javaee8
 COPY server/postgresql-42.2.4.jar /opt/ol/wlp/usr/shared/resources/
 
