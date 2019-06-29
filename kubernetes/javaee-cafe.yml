@@ -29,7 +29,7 @@ spec:
               configMapKeyRef:
                 name: hostname-config
                 key: postgres_host
-        image: hillmerch/javaee-cafe:v3
+        image: hillmerch/javaee-cafe:4
         imagePullPolicy: Always
 ---
 apiVersion: v1
