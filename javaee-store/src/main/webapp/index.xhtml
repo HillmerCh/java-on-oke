@@ -21,47 +21,47 @@
 			<h3>
 				<h:outputText value="#{messages.ourMenu}" />
 			</h3>
-			<h:dataTable id="coffeeList" value="#{cafe.coffeeList}"
-				border="1" var="coffee" styleClass="table">
+			<h:dataTable id="mofongoList" value="#{mofongoPalace.mofongoList}"
+				border="1" var="mofongo" styleClass="table">
 				<h:column>
 					<f:facet name="header">
 						<h:outputText value="#{messages.id}" />
 					</f:facet>
-					<h:outputText value="#{coffee.id}" />
+					<h:outputText value="#{mofongo.id}" />
 				</h:column>
 				<h:column>
 					<f:facet name="header">
 						<h:outputText value="#{messages.name}" />
 					</f:facet>
-					<h:outputText value="#{coffee.name}" />
+					<h:outputText value="#{mofongo.name}" />
 				</h:column>
 				<h:column>
 					<f:facet name="header">
 						<h:outputText value="#{messages.price}" />
 					</f:facet>
-					<h:outputText value="#{coffee.price}" />
+					<h:outputText value="#{mofongo.price}" />
 				</h:column>
 				<h:column>
 					<h:commandLink value="#{messages.delete}"
-						action="#{cafe.removeCoffee(coffee.id)}" immediate="true" />
+						action="#{mofongoPalace.removeMofongo(mofongo.id)}" immediate="true" />
 				</h:column>
 			</h:dataTable>
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<h:outputText value="#{messages.addCoffee}" />
+					<h:outputText value="#{messages.addMofongo}" />
 				</div>
 				<div class="panel-body">
 					<h:outputText value="#{messages.name} " />
-					<h:inputText id="name" value="#{cafe.name}"
+					<h:inputText id="name" value="#{mofongoPalace.name}"
 						styleClass="form-control" />
 					<p />
 					<h:message for="name" style="color:red" />
 					<p />
 					<h:outputText value="#{messages.price} " />
-					<fc:inputPrice id="price" price="#{cafe.price}" />
+					<fc:inputPrice id="price" price="#{mofongoPalace.price}" />
 					<p />
 					<h:commandButton value="#{messages.submit}"
-						action="#{cafe.addCoffee}" styleClass="btn btn-default" />
+						action="#{mofongoPalace.addMofongo}" styleClass="btn btn-default" />
 				</div>
 			</div>
 		</div>

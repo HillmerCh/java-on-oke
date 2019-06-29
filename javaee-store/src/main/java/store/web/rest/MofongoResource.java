@@ -1,4 +1,4 @@
-package cafe.web.rest;
+package store.web.rest;
 
 import java.lang.invoke.MethodHandles;
 import java.net.URI;
@@ -19,31 +19,31 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import cafe.model.CafeRepository;
-import cafe.model.entity.Coffee;
+import store.model.MofongoRepository;
+import store.model.entity.Mofongo;
 
-@Path("coffees")
-public class CafeResource {
+@Path("mofongos")
+public class MofongoResource {
 
 	private static final Logger logger = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
 
 	@Inject
-	private CafeRepository cafeRepository;
+	private MofongoRepository mofongoRepository;
 
 	@GET
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-	public List<Coffee> getAllCoffees() {
-		return this.cafeRepository.getAllCoffees();
+	public List<Mofongo> getAllMofongos() {
+		return this.mofongoRepository.getAllMofongos();
 	}
 
 	@POST
 	@Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-	public Response createCoffee(Coffee coffee) {
+	public Response createMofongo(Mofongo mofongo) {
 		try {
-			coffee = this.cafeRepository.persistCoffee(coffee);
-			return Response.created(URI.create("/" + coffee.getId())).build();
+			mofongo = this.mofongoRepository.persistMofongo(mofongo);
+			return Response.created(URI.create("/" + mofongo.getId())).build();
 		} catch (PersistenceException e) {
-			logger.log(Level.SEVERE, "Error creating coffee {0}: {1}.", new Object[] { coffee, e });
+			logger.log(Level.SEVERE, "Error creating mofongo {0}: {1}.", new Object[] { mofongo, e });
 			throw new WebApplicationException(e, Response.Status.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -51,18 +51,18 @@ public class CafeResource {
 	@GET
 	@Path("{id}")
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-	public Coffee getCoffeeById(@PathParam("id") Long coffeeId) {
-		return this.cafeRepository.findCoffeeById(coffeeId);
+	public Mofongo getMofongoById(@PathParam("id") Long mofongoId) {
+		return this.mofongoRepository.findMofongoById(mofongoId);
 	}
 
 	@DELETE
 	@Path("{id}")
-	public void deleteCoffee(@PathParam("id") Long coffeeId) {
+	public void deleteMofongo(@PathParam("id") Long mofongoId) {
 		try {
-			this.cafeRepository.removeCoffeeById(coffeeId);
+			this.mofongoRepository.removeMofongoById(mofongoId);
 		} catch (IllegalArgumentException ex) {
-			logger.log(Level.SEVERE, "Error calling deleteCoffee() for coffeeId {0}: {1}.",
-					new Object[] { coffeeId, ex });
+			logger.log(Level.SEVERE, "Error calling deleteMofongo() for mofongoId {0}: {1}.",
+					new Object[] { mofongoId, ex });
 			throw new WebApplicationException(Response.Status.NOT_FOUND);
 		}
 	}

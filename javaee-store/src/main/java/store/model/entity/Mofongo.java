@@ -1,4 +1,4 @@
-package cafe.model.entity;
+package store.model.entity;
 
 import java.io.Serializable;
 
@@ -10,8 +10,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @Entity
-@NamedQuery(name = "findAllCoffees", query = "SELECT o FROM Coffee o")
-public class Coffee implements Serializable {
+@NamedQuery(name = "findAllMofongos", query = "SELECT o FROM Mofongo o")
+public class Mofongo implements Serializable {
 
     private static final long serialVersionUID = 1L;
     
@@ -21,10 +21,10 @@ public class Coffee implements Serializable {
     protected String name;
     protected Double price;
 
-    public Coffee() {
+    public Mofongo() {
     }
 
-    public Coffee(String name, Double price) {
+    public Mofongo(String name, Double price) {
         this.name = name;
         this.price = price;
     }
@@ -62,10 +62,10 @@ public class Coffee implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        if (!(object instanceof Coffee)) {
+        if (!(object instanceof Mofongo)) {
             return false;
         }
-        Coffee other = (Coffee) object;
+        Mofongo other = (Mofongo) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -74,6 +74,6 @@ public class Coffee implements Serializable {
 
     @Override
     public String toString() {
-        return "cafe.model.entity.Coffee[id=" + id + ", name=" +name + ", price=" + price+"]";
+        return "store.model.entity.Mofongo[id=" + id + ", name=" +name + ", price=" + price+"]";
     }
 }

@@ -1,4 +1,4 @@
-package cafe.web.view;
+package store.web.view;
 
 import java.io.Serializable;
 import java.lang.invoke.MethodHandles;
@@ -21,11 +21,11 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 
-import cafe.model.entity.Coffee;
+import store.model.entity.Mofongo;
 
 @Named
 @SessionScoped
-public class Cafe implements Serializable {
+public class MofongoPalace implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private static final Logger logger = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
@@ -38,7 +38,7 @@ public class Cafe implements Serializable {
 	protected String name;
 	@NotNull
 	protected Double price;
-	protected List<Coffee> coffeeList;
+	protected List<Mofongo> mofongoList;
 
 	public String getName() {
 		return name;
@@ -56,8 +56,8 @@ public class Cafe implements Serializable {
 		this.price = price;
 	}
 
-	public List<Coffee> getCoffeeList() {
-		return coffeeList;
+	public List<Mofongo> getMofongoList() {
+		return mofongoList;
 	}
 
 	@PostConstruct
@@ -70,31 +70,31 @@ public class Cafe implements Serializable {
 			baseUri = FacesContext.getCurrentInstance().getExternalContext().getRequestScheme() + "://"
 					+ inetAddress.getHostName() + ":"
 					+ FacesContext.getCurrentInstance().getExternalContext().getRequestServerPort()
-					+ "/javaee-cafe/rest/coffees";
+					+ "/javaee-store/rest/mofongos";
 			this.client = ClientBuilder.newClient();
-			this.getAllCoffees();
+			this.getAllMofongos();
 		} catch (IllegalArgumentException | NullPointerException | WebApplicationException | UnknownHostException ex) {
 			logger.severe("Processing of HTTP response failed.");
 			ex.printStackTrace();
 		}
 	}
 
-	private void getAllCoffees() {
-		this.coffeeList = this.client.target(this.baseUri).path("/").request(MediaType.APPLICATION_JSON)
-				.get(new GenericType<List<Coffee>>() {
+	private void getAllMofongos() {
+		this.mofongoList = this.client.target(this.baseUri).path("/").request(MediaType.APPLICATION_JSON)
+				.get(new GenericType<List<Mofongo>>() {
 				});
 	}
 
-	public void addCoffee() {
-		Coffee coffee = new Coffee(this.name, this.price);
-		this.client.target(baseUri).request(MediaType.APPLICATION_JSON).post(Entity.json(coffee));
+	public void addMofongo() {
+		Mofongo mofongo = new Mofongo(this.name, this.price);
+		this.client.target(baseUri).request(MediaType.APPLICATION_JSON).post(Entity.json(mofongo));
 		this.name = null;
 		this.price = null;
-		this.getAllCoffees();
+		this.getAllMofongos();
 	}
 
-	public void removeCoffee(String coffeeId) {
-		this.client.target(baseUri).path(coffeeId).request().delete();
-		this.getAllCoffees();
+	public void removeMofongo(String mofongoId) {
+		this.client.target(baseUri).path(mofongoId).request().delete();
+		this.getAllMofongos();
 	}
 }

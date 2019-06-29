@@ -5,7 +5,7 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
 	<application>
 		<resource-bundle>
-			<base-name>cafe.web.messages</base-name>
+			<base-name>store.web.messages</base-name>
 			<var>messages</var>
 		</resource-bundle>
 		<locale-config>

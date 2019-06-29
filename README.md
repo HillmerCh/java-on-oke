@@ -12,20 +12,20 @@ Requirements
 ## The Java Application
 
 
-The javaee-cafe is the basic Java EE 8 application used throughout the Docker and Kubertenes demos. It is a simple CRUD application. It uses Maven and Java EE 8 (JAX-RS, EJB, CDI, JPA, JSF, Bean Validation).
+The javaee-store is the basic Java EE 8 application used throughout the Docker and Kubertenes demos. It is a simple CRUD application. It uses Maven and Java EE 8 (JAX-RS, EJB, CDI, JPA, JSF, Bean Validation).
 
 You can use any Maven capable IDE such as NetBeans. We use Open Liberty but you should be able to use any Java EE 8 compatible application server such as WildFly or Payara. We use Postgres but you can use any relational database such as MySQL.
 
 The application is composed of:
 
-- **A RESTFul service*:** protocol://hostname:port/javaee-cafe/rest/coffees
+- **A RESTFul service*:** protocol://hostname:port/javaee-store/rest/mofongos
 
-	- **_GET by Id_**: protocol://hostname:port/javaee-cafe/rest/coffees/{id} 
-	- **_GET all_**: protocol://hostname:port/javaee-cafe/rest/coffees
-	- **_POST_** to add a new element at: protocol://hostname:port/javaee-cafe/rest/coffees
-	- **_DELETE_** to delete an element at: protocol://hostname:port/javaee-cafe/rest/coffees/{id}
+	- **_GET by Id_**: protocol://hostname:port/javaee-store/rest/mofongos/{id} 
+	- **_GET all_**: protocol://hostname:port/javaee-store/rest/mofongos
+	- **_POST_** to add a new element at: protocol://hostname:port/javaee-store/rest/mofongos
+	- **_DELETE_** to delete an element at: protocol://hostname:port/javaee-store/rest/mofongos/{id}
 
-- **A JSF Client:** protocol://hostname:port/javaee-cafe/index.xhtml
+- **A JSF Client:** protocol://hostname:port/javaee-store/index.xhtml
 
 ## Docker
 
@@ -39,17 +39,17 @@ The application is composed of:
 * Navigate to where you have this repository code in your file system. Compile and Package the application via maven:
 
 	```
-	mvn package -f javaee-cafe/pom.xml 
+	mvn package -f javaee-store/pom.xml 
 	```
 
 * Copy the .war file into docker directory:
 	```
-	cp javaee-cafe/target/javaee-cafe.war docker/
+	cp javaee-store/target/javaee-store.war docker/
 	```
 
-* Make sure Docker is running. Build a Docker image tagged `javaee-cafe` issuing the command:
+* Make sure Docker is running. Build a Docker image tagged `javaee-store` issuing the command:
 	```
-	docker build -t javaee-cafe docker/.
+	docker build -t javaee-store docker/.
 	```
 	
 	> **Note:** If your Docker instance is running on Linux/Windows before to build the Docker image it is necessary to open the file server/server.xml and edit the serverName="docker.for.mac.localhost" of the dataSource to serverName="localhost"
@@ -60,17 +60,17 @@ The application is composed of:
 
 * Enter the following command and wait for the database to come up fully.
 	```
-	docker run -it --rm --name javaee-cafe-db -v pgdata:/var/lib/postgresql/data -p 5432:5432 postgres
+	docker run -it --rm --name javaee-store-db -v pgdata:/var/lib/postgresql/data -p 5432:5432 postgres
 	```
  
 * To run the newly built image, use the command:
 	```
-	docker run -it --rm -p 9080:9080 javaee-cafe
+	docker run -it --rm -p 9080:9080 javaee-store
 	```
 
 * Wait for Open Liberty to start and the application to deploy sucessfully (to stop the application and Liberty, simply press Control-C).
 
-* Once the application starts, you can test the REST service at the URL: [http://localhost:9080/javaee-cafe/rest/coffees](http://localhost:9080/javaee-cafe/rest/coffees) or via the JSF client at [http://localhost:9080/javaee-cafe/index.xhtml](http://localhost:9080/javaee-cafe/index.xhtml).
+* Once the application starts, you can test the REST service at the URL: [http://localhost:9080/javaee-store/rest/mofongos](http://localhost:9080/javaee-store/rest/mofongos) or via the JSF client at [http://localhost:9080/javaee-store/index.xhtml](http://localhost:9080/javaee-store/index.xhtml).
 
 
 ## Kubernetes
@@ -79,7 +79,7 @@ The application is composed of:
 
 * Copy the .war file into kubernetes directory:
 	```
-	cp javaee-cafe/target/javaee-cafe.war kubernetes/
+	cp javaee-store/target/javaee-store.war kubernetes/
 	```
 
 * Log in to Docker Hub using the docker login command:
@@ -88,8 +88,8 @@ The application is composed of:
    ```
 * Build a Docker image and push the image to Docker Hub:
    ```
-   docker build -t <your Docker Hub account>/javaee-cafe:<your docker image version> kubernetes/.
-   docker push <your Docker Hub account>/javaee-cafe:<your docker image version>
+   docker build -t <your Docker Hub account>/javaee-store:<your docker image version> kubernetes/.
+   docker push <your Docker Hub account>/javaee-store:<your docker image version>
    ```
 
 ### Deploying the Application on Oracle Kubernetes Engine
@@ -132,27 +132,27 @@ The application is composed of:
    ``` 
 
    
-* Replace the `<your Docker Hub account>` value with your account name in `kubernetes/javaee-cafe.yml` file, then deploy the application:
+* Replace the `<your Docker Hub account>` value with your account name in `kubernetes/javaee-store.yml` file, then deploy the application:
    ```
-   kubectl create -f kubernetes/javaee-cafe.yml
+   kubectl create -f kubernetes/javaee-store.yml
    ```
 
-* Get the External IP address of the Service, then the application will be accessible at `http://<External IP Address>:9080/javaee-cafe`:
+* Get the External IP address of the Service, then the application will be accessible at `http://<External IP Address>:9080/javaee-store`:
    ```
-   kubectl get svc javaee-cafe
+   kubectl get svc javaee-store
    ```
    > **Note:** It may take a few minutes for the load balancer to be created.
 
 
 * Scale your application:
    ```
-   kubectl scale deployment javaee-cafe --replicas=3
+   kubectl scale deployment javaee-store --replicas=3
    ```
    
 ## Deleting the Resources
 * Delete the Java EE deployment:
    ```
-   kubectl delete -f kubernetes/javaee-cafe.yml
+   kubectl delete -f kubernetes/javaee-store.yml
    ```
 
 * Delete the hostname config map:

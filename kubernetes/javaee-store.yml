@@ -1,18 +1,18 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: javaee-cafe
+  name: javaee-store
   namespace: default
 spec:
   replicas: 2
   template:
     metadata:
-      name: javaee-cafe
+      name: javaee-store
       labels:
-        app: javaee-cafe
+        app: javaee-store
     spec:
       containers:
-      - name: javaee-cafe
+      - name: javaee-store
         env:
           - name: POSTGRES_USER
             valueFrom:
@@ -29,16 +29,16 @@ spec:
               configMapKeyRef:
                 name: hostname-config
                 key: postgres_host
-        image: hillmerch/javaee-cafe:4
+        image: hillmerch/javaee-store:4
         imagePullPolicy: Always
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: javaee-cafe
+  name: javaee-store
 spec:
   type: LoadBalancer
   ports:
     - port: 9080
   selector:
-    app: javaee-cafe
+    app: javaee-store
